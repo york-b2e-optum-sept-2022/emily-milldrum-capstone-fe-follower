@@ -1,1 +1,23 @@
-<p>process works!</p>
+<div class="container">
+
+  <ngb-accordion *ngIf="process.discontinued == false" #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel>
+      <ng-template ngbPanelTitle>
+        <span id="currentprocess-style">  <b>{{process.title}}</b></span>
+        <div class="modify-buttons">
+
+        </div>
+
+      </ng-template>
+      <ng-template ngbPanelContent>
+        {{process.id}}
+        {{process.discontinued}}
+
+
+
+
+
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

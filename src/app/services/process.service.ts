@@ -1,9 +1,33 @@
 import { Injectable } from '@angular/core';
+import {HttpService} from "./http.service";
+import {BehaviorSubject, first} from "rxjs";
+import {IProcess} from "../_interfaces/IProcess";
+import {ERRORS} from "../_enums/ERRORS";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProcessService {
 
-  constructor() { }
+  processList: IProcess[] = [];
+  $processList = new BehaviorSubject<IProcess[]>([])
+  $processError = new BehaviorSubject<string | null>(null)
+
+  constructor( private httpService: HttpService) {
+    this.getAllProcess();
+   // this.getAllStages();
+  }
+
+  getAllProcess(){
+    this.httpService.getProcessList().pipe(first()).subscribe({
+      next: (processList) => {this.processList = processList;
+        this.$processList.next(processList)
+        console.log(this.processList)
+      },
+      error: (err) => {
+        console.error(err);
+        this.$processError.next(ERRORS.PROCESSES_HTTP_ERROR);
+      }
+    });
+  }
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {IProcess} from "../../_interfaces/IProcess";
+import {ProcessService} from "../../services/process.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-process',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProcessComponent implements OnInit {
 
-  constructor() { }
+  @Input() process: IProcess = {
+    id: 0,
+    title: "",
+    discontinued: false,
+    stages: [],
+  };
+  deleteAlert: string | null = null;
+  constructor(private processService: ProcessService, private modalService: NgbModal) {
+
+  }
 
   ngOnInit(): void {
   }
 
+
+  public open(modal: any): void {
+    this.modalService.open(modal);
+  }
+
+  //open stage input in modal
+  openThis() {
+    // this.processService.$processToUpdate.next(this.process)
+    // this.modalService.open(StageInputComponent);
+  }
 }
