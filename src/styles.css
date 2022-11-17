@@ -8,15 +8,47 @@ body {
 .container{
   padding-top: 2rem;
 }
+.centering{
+  padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+  font-family: Georgia;
+  font-size: large;
+  color: darkslategrey;
+  font-variant: small-caps;
+}
 
-.close-button{
+.close-button, .modify-buttons{
   display: flex;
   justify-content: flex-end;
 }
-#title-style{
+
+
+.modify-buttons{
+  justify-self: flex-end;
+  padding: 1rem;
+}
+
+.font-green{
+  font-family: Georgia;
+  font-size: large;
+  color: darkslategrey;
+  font-variant: small-caps;
+}
+
+#title-style, #currentprocess-style{
   font-family: Georgia;
   font-size: xx-large;
   color: darkslategrey;
   font-variant: small-caps;
   vertical-align: center;
 }
+
+#discontinued-style{
+  font-family: Georgia;
+  font-size: xx-large;
+  color: darkgrey;
+  font-variant: small-caps;
+  vertical-align: center;
+}
+

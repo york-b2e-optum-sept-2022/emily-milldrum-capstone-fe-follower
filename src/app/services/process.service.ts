@@ -10,6 +10,7 @@ import {ERRORS} from "../_enums/ERRORS";
 export class ProcessService {
 
   processList: IProcess[] = [];
+  $selectedProcess = new BehaviorSubject<IProcess | null>(null)
   $processList = new BehaviorSubject<IProcess[]>([])
   $processError = new BehaviorSubject<string | null>(null)
 

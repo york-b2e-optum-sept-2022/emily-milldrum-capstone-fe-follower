@@ -10,11 +10,13 @@
 
       </ng-template>
       <ng-template ngbPanelContent>
-        {{process.id}}
-        {{process.discontinued}}
+        id: {{process.id}}<br>
+        discontinued: {{process.discontinued}}<br>
 
-
-
+        stages: {{process.stages}}<br>
+        <div class="centering">
+        <button class="btn btn-light" (click)="onRespond()">Respond</button>
+        </div>
 
 
       </ng-template>

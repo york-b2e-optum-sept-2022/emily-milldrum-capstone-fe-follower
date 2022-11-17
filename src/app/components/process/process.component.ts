@@ -34,4 +34,10 @@ export class ProcessComponent implements OnInit {
     // this.processService.$processToUpdate.next(this.process)
     // this.modalService.open(StageInputComponent);
   }
+
+  onRespond() {
+    console.log('click')
+    console.log(this.process)
+    this.processService.$selectedProcess.next(this.process)
+  }
 }

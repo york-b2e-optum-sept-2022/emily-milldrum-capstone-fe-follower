@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ProcessService} from "../../services/process.service";
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private processService: ProcessService) { }
 
   ngOnInit(): void {
   }
 
+  home() {
+    this.processService.$selectedProcess.next(null);
+  }
 }
