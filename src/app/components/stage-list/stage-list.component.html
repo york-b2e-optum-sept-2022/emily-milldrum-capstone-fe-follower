@@ -1,0 +1,5 @@
+<ng-container *ngIf="process.stage !== undefined">
+  <app-stage *ngFor="let stage of process.stage"
+             [stage]="stage">
+  </app-stage>
+</ng-container>

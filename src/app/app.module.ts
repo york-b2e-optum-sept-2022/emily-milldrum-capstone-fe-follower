@@ -8,6 +8,9 @@ import { ProcessComponent } from './components/process/process.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { StageComponent } from './components/stage/stage.component';
 import {HttpClientModule} from "@angular/common/http";
+import { StageListComponent } from './components/stage-list/stage-list.component';
+import {FormsModule} from "@angular/forms";
+import { StageOptionsComponent } from './components/stage-options/stage-options.component';
 
 @NgModule({
   declarations: [
@@ -15,13 +18,16 @@ import {HttpClientModule} from "@angular/common/http";
     ProcessListComponent,
     ProcessComponent,
     NavbarComponent,
-    StageComponent
+    StageComponent,
+    StageListComponent,
+    StageOptionsComponent
   ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        HttpClientModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

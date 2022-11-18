@@ -4,5 +4,5 @@ export interface IProcess {
   id: number;
   title: string;
   discontinued: boolean;
-  stages: IStage[];
+  stage: IStage[];
 }

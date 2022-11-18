@@ -12,13 +12,81 @@
         {{selectedProcess.title}}
         </div>
         <div
-          *ngFor="let stage of selectedProcess.stages">
-          <div>{{stage.question}}</div>
-          <div>{{stage.type}}</div>
+          *ngFor="let stage of selectedProcess.stage">
+
+          <div class="centering">
+            <h3 class="text-center pt-3">{{stage.question}}
+            </h3>
+          </div>
+          Stage Type: <div>{{stage.type}}</div>
+<br>
+          <ng-container *ngIf="stage.type == 'Textbox'">
+            <div class="form-group row">
+
+                <textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control"></textarea>
+
+            </div>
+          </ng-container>
+
+
+          <!--          if selected multi single show this-->
+          <ng-container *ngIf="stage.type == 'Multiple Choice: Single'">
+            <div class="form-group row">
+            <div *ngFor="let choice of stage.stageOptions" class="col-8">
+              ngfor stage-options
+
+              <app-stage-options *ngFor="let choice of stage.stageOptions"
+              [choice] = choice></app-stage-options>
+
+              .....
+              <div class="custom-control custom-radio custom-control-inline">
+                <input name="radio" id="radio_0" type="radio" class="custom-control-input" value="{{choice}}">
+                <label for="{{choice}}" class="custom-control-label">{{choice.valueOf()}}</label>
+              </div>
+            </div>
+            </div>
+          </ng-container>
+
+          <!--          if selected multi single show this-->
+          <ng-container *ngIf="stage.type == 'Boolean'">
+            <div class="form-group row">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input name="radio" id="radio_false" type="radio" class="custom-control-input" value="false">
+                  <label for="radio_false" class="custom-control-label">False</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input name="radio" id="radio_true" type="radio" class="custom-control-input" value="true">
+                  <label for="radio_true" class="custom-control-label">True</label>
+              </div>
+            </div>
+          </ng-container>
+
+          <!--          if selected multi multiple show this-->
+          <ng-container *ngIf="stage.type == 'Multiple Choice: Multiple'">
+            <div class="form-group row">
+              <div *ngFor="let choice of stage.stageOptions" class="col-8">
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <!--                checked="checked" for pre-checked-->
+                  <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="{{choice}}">
+                  <label for="checkbox_0" class="custom-control-label">{{choice.toString()}}</label>
+                </div>
+
+              </div>
+            </div>
+          </ng-container>
+
+
 
         </div>
 
       </ng-container>
+      <div class="container">{{errorMessage}}</div>
+      <div class="centering">
+        <button class="btn btn-light" (click)="onSubmit()">Submit</button>
+      </div>
+
     </div>
+
   </div>
 </div>
+
