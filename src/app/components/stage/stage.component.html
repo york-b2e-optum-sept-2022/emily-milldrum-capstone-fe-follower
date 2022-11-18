@@ -7,9 +7,10 @@
 
 
       <ng-container *ngIf="selectedProcess">
-
+        <div class="centering">
         <div id="title-style">
         {{selectedProcess.title}}
+        </div>
         </div>
         <div
           *ngFor="let stage of selectedProcess.stage">
@@ -18,13 +19,15 @@
             <h3 class="text-center pt-3">{{stage.question}}
             </h3>
           </div>
-          Stage Type: <div>{{stage.type}}</div>
 <br>
           <ng-container *ngIf="stage.type == 'Textbox'">
             <div class="form-group row">
 
                 <textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control"></textarea>
 
+              <div class="centering">
+                <button class="btn btn-light" (click)="onNext()">Next</button>
+              </div>
             </div>
           </ng-container>
 
@@ -44,6 +47,10 @@
                 <label for="{{choice}}" class="custom-control-label">{{choice.valueOf()}}</label>
               </div>
             </div>
+
+              <div class="centering">
+                <button class="btn btn-light" (click)="onNext()">Next</button>
+              </div>
             </div>
           </ng-container>
 
@@ -58,6 +65,10 @@
                   <input name="radio" id="radio_true" type="radio" class="custom-control-input" value="true">
                   <label for="radio_true" class="custom-control-label">True</label>
               </div>
+
+              <div class="centering">
+                <button class="btn btn-light" (click)="onNext()">Next</button>
+              </div>
             </div>
           </ng-container>
 
@@ -70,17 +81,21 @@
                   <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="{{choice}}">
                   <label for="checkbox_0" class="custom-control-label">{{choice.toString()}}</label>
                 </div>
+              </div>
 
+              <div class="centering">
+                <button class="btn btn-light" (click)="onNext()">Next</button>
               </div>
             </div>
           </ng-container>
 
 
-
+<div class="centering">__________________________________</div>
         </div>
 
       </ng-container>
       <div class="container">{{errorMessage}}</div>
+
       <div class="centering">
         <button class="btn btn-light" (click)="onSubmit()">Submit</button>
       </div>
@@ -89,4 +104,5 @@
 
   </div>
 </div>
+
 

@@ -26,8 +26,10 @@ export class StageComponent implements OnInit {
         this.selectedProcess = selectedProcess;
       }
     )
-    console.log(this.stage)
+
+    console.log('stage const')
     console.log(this.selectedProcess?.stage)
+    console.log(this.stageOptions)
     // if (this.selectedProcess !== null){
     //   this.stage = this.selectedProcess.stage)
     // }
@@ -47,5 +49,9 @@ export class StageComponent implements OnInit {
   onSubmit() {
     console.log('submit')
     console.log(this.output)
+  }
+
+  onNext() {
+
   }
 }
