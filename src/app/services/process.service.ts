@@ -4,6 +4,7 @@ import {BehaviorSubject, first} from "rxjs";
 import {IProcess} from "../_interfaces/IProcess";
 import {ERRORS} from "../_enums/ERRORS";
 import {IStage} from "../_interfaces/IStage";
+import {IResponse} from "../_interfaces/IResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,9 @@ export class ProcessService {
 
   getStageById(id: number) {
 
+  }
+
+  submitResponse(response: IResponse) {
+    this.httpService.createResponse(response)
   }
 }

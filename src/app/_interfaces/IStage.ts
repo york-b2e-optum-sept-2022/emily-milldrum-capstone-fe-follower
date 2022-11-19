@@ -11,3 +11,7 @@ export interface IStageOptions {
   id: number,
   option: string
 }
+
+export interface IStageOptionsNew {
+  option: string
+}

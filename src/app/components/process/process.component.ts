@@ -22,6 +22,7 @@ export class ProcessComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.numStages = this.process.stage.length
   }
 
 
@@ -30,6 +31,7 @@ export class ProcessComponent implements OnInit {
   }
 
   //open stage input in modal
+  numStages: number = 0;
   openThis() {
     // this.processService.$processToUpdate.next(this.process)
     // this.modalService.open(StageInputComponent);
