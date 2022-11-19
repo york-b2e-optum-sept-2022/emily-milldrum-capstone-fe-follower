@@ -41,6 +41,15 @@ export class ProcessService {
   }
 
   submitResponse(response: IResponse) {
-    this.httpService.createResponse(response)
+    console.log('ps submit to http')
+    this.httpService.createResponse(response).pipe(first()).subscribe({
+      next: (response) =>{
+        console.log('success')
+        console.log(response)
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 }
