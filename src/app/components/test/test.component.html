@@ -1,0 +1,17 @@
+
+<ng-container *ngIf="processtest !== null">
+  <p>
+<!--    {{processtest.stage[cur].question}}<br>-->
+<!--    {{processtest.stage[cur].stageOrder}}<br>-->
+<!--    {{processtest.stage[cur].stageOptions}}<br>-->
+<!--    {{processtest.stage[cur].type}}<br>-->
+
+    {{curQuestion}}<br>
+    {{curStageOrder}}<br>
+    {{curStageOption}}<br>
+    {{curType}}<br>
+    <button *ngIf="notLast" (click)=next()>Next</button>
+    <button *ngIf="!notLast" (click)=submit()>Submit</button>
+  </p>
+
+</ng-container>

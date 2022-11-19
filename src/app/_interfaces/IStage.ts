@@ -1,8 +1,13 @@
 export interface IStage {
-
-  id: number;
+  id?: number;
+  // processId: number;
   question: string;
-  order: number;
+  stageOrder: number;
   type: string;
-  stageOptions: string[];
+  stageOptions?: IStageOptions[];
+}
+
+export interface IStageOptions {
+  id: number,
+  option: string
 }
