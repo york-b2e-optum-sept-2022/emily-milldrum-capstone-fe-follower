@@ -82,7 +82,7 @@ export class StageComponent implements OnInit {
       this.totalStageNum = this.selectedProcess.stage.length;
 
       this.response = {
-        process: this.selectedProcess,
+        processes: this.selectedProcess,
         answer: []
       };
     }
@@ -164,7 +164,8 @@ export class StageComponent implements OnInit {
   submit() {
     this.setAnswer()
     if(this.selectedProcess && this.response){
-    this.response.process =this.selectedProcess;
+    this.response.processes =this.selectedProcess;
+
     }
     if (this.response){
       this.processService.submitResponse(this.response)
