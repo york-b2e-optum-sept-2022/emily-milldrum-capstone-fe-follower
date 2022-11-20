@@ -2,8 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ProcessService} from "../../services/process.service";
 import {Subject, takeUntil} from "rxjs";
 import {IProcess} from "../../_interfaces/IProcess";
-import {IStage, IStageOptions} from "../../_interfaces/IStage";
-import {IAnswer, IResponse} from "../../_interfaces/IResponse";
+import {IStage} from "../../_interfaces/IStage";
+import {IResponse} from "../../_interfaces/IResponse";
+import {IAnswer} from "../../_interfaces/IAnswer";
 
 @Component({
   selector: 'app-stage',
@@ -22,7 +23,15 @@ export class StageComponent implements OnInit {
 
 
   cur: number = -1;
-  response: IResponse | null = null
+  response: IResponse = {
+    process: {
+      id: 0,
+      title: "",
+      discontinued: false,
+      stage: []
+    },
+    answer: []
+  };
   answer: IAnswer = {
     stage:
       {
@@ -47,6 +56,7 @@ export class StageComponent implements OnInit {
   percentDone: number = 0;
   curStageNum: number = 0;
   totalStageNum: number = 0;
+  responseComplete: boolean = false;
 
 
   constructor(private processService: ProcessService) {
@@ -113,8 +123,8 @@ export class StageComponent implements OnInit {
       this.curQuestion = this.selectedProcess.stage[this.cur].question;
       this.curStageOption = this.selectedProcess.stage[this.cur].stageOptions;
       this.curStageOrder = this.selectedProcess.stage[this.cur].stageOrder;
-      this.percentDone = (this.cur / this.selectedProcess.stage.length) * 100
-      this.option = ""
+      this.percentDone = (this.cur / this.selectedProcess.stage.length) * 100;
+      this.option = "";
     }
   }
 
@@ -162,9 +172,13 @@ export class StageComponent implements OnInit {
   submit() {
     this.setAnswer()
     console.log('submit results')
+    if(this.selectedProcess !== null){
+    this.response.process =this.selectedProcess;
+    }
     console.log(this.response?.answer)
     if (this.response){
-      this.processService.submitResponse(this.response)
+      //this.processService.submitResponse(this.response)
+      this.responseComplete = true;
     } else {
       //TODO ERROR MESSAGE
     }

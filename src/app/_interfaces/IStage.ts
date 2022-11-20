@@ -1,6 +1,5 @@
 export interface IStage {
-  id?: number;
-  // processId: number;
+  id: number;
   question: string;
   stageOrder: number;
   type: string;

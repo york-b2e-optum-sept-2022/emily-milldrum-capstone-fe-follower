@@ -3,7 +3,16 @@
     <div class="container">
 
 
-      <ng-container *ngIf="selectedProcess">
+      <ng-container *ngIf="responseComplete">
+        <div class="centering">
+          <h3>Your answers have been submitted</h3>
+        </div>
+        <div class="centering">
+        Thank you for your response!
+          </div>
+      </ng-container>
+
+      <ng-container *ngIf="selectedProcess && !responseComplete">
         <div class="centering">
         <div id="title-style">
         {{selectedProcess.title}}

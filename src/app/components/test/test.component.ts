@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {IProcess} from "../../_interfaces/IProcess";
-import {IAnswer, IResponse} from "../../_interfaces/IResponse";
+import {IResponse} from "../../_interfaces/IResponse";
+import {IAnswer} from "../../_interfaces/IAnswer";
 
 @Component({
   selector: 'app-test',
