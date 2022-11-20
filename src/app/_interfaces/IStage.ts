@@ -3,7 +3,7 @@ export interface IStage {
   question: string;
   stageOrder: number;
   type: string;
-  stageOptions?: IStageOptions[];
+  stageOptions: IStageOptions[];
 }
 
 export interface IStageOptions {

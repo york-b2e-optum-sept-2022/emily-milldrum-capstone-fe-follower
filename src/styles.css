@@ -44,19 +44,16 @@ body {
   vertical-align: center;
 }
 
-#discontinued-style{
-  font-family: Georgia, serif;
-  font-size: xx-large;
-  color: darkgrey;
-  font-variant: small-caps;
-  vertical-align: center;
+
+#error-message{
+  color: chocolate;
 }
 
-#main-container{
+#main-container, #main-sub-container{
+  border-radius: 1rem;
 
-}
-
-#accordian-style{
-  background-color: red;
-  color: red;
+  top: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 4rem;
 }

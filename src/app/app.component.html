@@ -1,4 +1,7 @@
-<app-navbar></app-navbar>
+
+<div class="container " id="main-container">
+  <div class="card shadow bg-light" id="main-sub-container">
+    <app-navbar></app-navbar>
 <ng-container *ngIf="!selectedProcess">
   <div class="container">
   <app-process-list></app-process-list>
@@ -8,3 +11,5 @@
 <ng-container *ngIf="selectedProcess">
   <app-stage></app-stage>
 </ng-container>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ProcessService} from "../../services/process.service";
 import {Subject, takeUntil} from "rxjs";
 import {IProcess} from "../../_interfaces/IProcess";
-import {IStage} from "../../_interfaces/IStage";
+import {IStage, IStageOptions} from "../../_interfaces/IStage";
 import {IResponse} from "../../_interfaces/IResponse";
 import {IAnswer} from "../../_interfaces/IAnswer";
 
@@ -23,15 +23,7 @@ export class StageComponent implements OnInit {
 
 
   cur: number = -1;
-  response: IResponse = {
-    process: {
-      id: 0,
-      title: "",
-      discontinued: false,
-      stage: []
-    },
-    answer: []
-  };
+  response: IResponse | null = null;
   answer: IAnswer = {
     stage:
       {
@@ -49,15 +41,14 @@ export class StageComponent implements OnInit {
 
   //html fields
   notLast: boolean = true;
-  curType: any;
-  curStageOption: any;
-  curQuestion: any;
-  curStageOrder: any;
+  curType: string = "Textbox";
+  curStageOptions: IStageOptions[] = [];
+  curQuestion: string =  "";
+  curStageOrder: number = 0;
   percentDone: number = 0;
   curStageNum: number = 0;
   totalStageNum: number = 0;
   responseComplete: boolean = false;
-
 
   constructor(private processService: ProcessService) {
     this.processService = processService
@@ -95,6 +86,7 @@ export class StageComponent implements OnInit {
         answer: []
       };
     }
+    console.log(this.curStageOptions)
   }
 
 
@@ -121,7 +113,7 @@ export class StageComponent implements OnInit {
       this.cur = this.cur + 1;
       this.curType = this.selectedProcess.stage[this.cur].type;
       this.curQuestion = this.selectedProcess.stage[this.cur].question;
-      this.curStageOption = this.selectedProcess.stage[this.cur].stageOptions;
+      this.curStageOptions = this.selectedProcess.stage[this.cur].stageOptions;
       this.curStageOrder = this.selectedProcess.stage[this.cur].stageOrder;
       this.percentDone = (this.cur / this.selectedProcess.stage.length) * 100;
       this.option = "";
@@ -171,13 +163,11 @@ export class StageComponent implements OnInit {
 
   submit() {
     this.setAnswer()
-    console.log('submit results')
-    if(this.selectedProcess !== null){
+    if(this.selectedProcess && this.response){
     this.response.process =this.selectedProcess;
     }
-    console.log(this.response?.answer)
     if (this.response){
-      //this.processService.submitResponse(this.response)
+      this.processService.submitResponse(this.response)
       this.responseComplete = true;
     } else {
       //TODO ERROR MESSAGE

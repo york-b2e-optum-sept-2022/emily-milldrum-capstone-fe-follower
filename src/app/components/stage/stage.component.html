@@ -24,7 +24,7 @@
           </h4>
         </div>
         <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width:{{percentDone}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{percentDone}}%</div>
+          <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width:{{percentDone | number: '1.0-0'}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{percentDone}}%</div>
         </div>
 
 
@@ -46,20 +46,21 @@
             </div>
           </ng-container>
 
+<!--        ngfor stage-options-->
 
-          <!--          if selected multi single show this-->
+<!--        <app-stage-options *ngFor="let choice of curStageOption"-->
+<!--                           [choice] = choice></app-stage-options>-->
+<!--        .....-->
+<!--          &lt;!&ndash;          if selected multi single show this&ndash;&gt;-->
           <ng-container *ngIf="curType == 'Multiple Choice: Single'">
             <div class="form-group row">
-            <div *ngFor="let choice of curStageOption" class="col-8">
-              ngfor stage-options
+            <div *ngFor="let options of curStageOptions" class="col-8">
 
-              <app-stage-options *ngFor="let choice of curStageOption"
-              [choice] = choice></app-stage-options>
 
-              .....
+
               <div class="custom-control custom-radio custom-control-inline">
-                <input name="radio" id="radio_0" type="radio" class="custom-control-input" value="{{choice}}" [(ngModel)]="option">
-                <label for="{{choice}}" class="custom-control-label">{{choice.valueOf()}}</label>
+                <input name="radio" id="radio_0" type="radio" class="custom-control-input" value="{{options.option}}" [(ngModel)]="options.option === option">
+                <label for="{{options.option}}" class="custom-control-label">{{options.option}}</label>
               </div>
             </div>
             </div>
@@ -82,11 +83,11 @@
           <!--          if selected multi multiple show this-->
           <ng-container *ngIf="curType == 'Multiple Choice: Multiple'">
             <div class="form-group row">
-              <div *ngFor="let choice of curStageOption" class="col-8">
+              <div *ngFor="let options of curStageOptions" class="col-8">
                 <div class="custom-control custom-checkbox custom-control-inline">
                   <!--                checked="checked" for pre-checked-->
-                  <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="{{choice}}" [(ngModel)]="choice === option">
-                  <label for="checkbox_0" class="custom-control-label">{{choice.toString()}}</label>
+                  <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="{{options.option}}" [(ngModel)]="options.option === option">
+                  <label for="checkbox_0" class="custom-control-label">{{options.option}}</label>
                 </div>
               </div>
             </div>
@@ -98,8 +99,7 @@
 
       </ng-container>
       <div class="container">{{errorMessage}}</div>
-
-      <div class="centering">
+      <div class="centering" *ngIf="!responseComplete">
         <button class="btn btn-light" *ngIf="notLast" (click)=next()>Next</button>
         <button class="btn btn-light" *ngIf="!notLast" (click)=submit()>Submit</button>
       </div>
