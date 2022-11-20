@@ -174,4 +174,7 @@ export class StageComponent implements OnInit {
     }
   }
 
+  closeThis() {
+    this.processService.$selectedProcess.next(null);
+  }
 }
