@@ -70,7 +70,7 @@
 
               <div class="custom-control custom-radio custom-control-inline">
                 <input name="radio" id="radio_0" type="radio" class="custom-control-input" value="{{options.option}}" [(ngModel)]="options.option === option">
-                <label for="{{options.option}}" class="custom-control-label">{{options.option}}</label>
+                <label for="{{options.option}}" class="custom-control-label">&nbsp; {{options.option}}</label>
               </div>
             </div>
             </div>
@@ -79,14 +79,14 @@
           <!--          if selected boolean show this-->
           <ng-container *ngIf="curType == 'Boolean'">
             <div class="form-group row">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input name="radio" id="radio_true" type="radio" class="custom-control-input" value="true"  [(ngModel)]="'true' === option">
+                <label for="radio_true" class="custom-control-label">&nbsp; True</label>
+              </div>
                 <div class="custom-control custom-radio custom-control-inline">
                   <input name="radio" id="radio_false" type="radio" class="custom-control-input" value="false" [(ngModel)]="'false' === option">
-                  <label for="radio_false" class="custom-control-label">False</label>
+                  <label for="radio_false" class="custom-control-label">&nbsp; False</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input name="radio" id="radio_true" type="radio" class="custom-control-input" value="true"  [(ngModel)]="'true' === option">
-                  <label for="radio_true" class="custom-control-label">True</label>
-              </div>
             </div>
           </ng-container>
 
@@ -97,7 +97,7 @@
                 <div class="custom-control custom-checkbox custom-control-inline">
                   <!--                checked="checked" for pre-checked-->
                   <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="{{options.option}}" [(ngModel)]="options.option === option">
-                  <label for="checkbox_0" class="custom-control-label">{{options.option}}</label>
+                  <label for="checkbox_0" class="custom-control-label">&nbsp; {{options.option}}</label>
                 </div>
               </div>
             </div>
