@@ -2,6 +2,7 @@ export enum ERRORS {
 //error messages
 
   //processes
+
   PROCESS_NULL = "ERROR: The process is null",
   PROCESS_ADD_ERROR = "ERROR: There was an error adding a process",
   PROCESS_TITLE = "ERROR: Must add process title",
@@ -16,5 +17,9 @@ export enum ERRORS {
   //responses
   RESPONSES_HTTP_ERROR = "ERROR: There was an error connecting to the database",
 
+  ANSWER_BLANK = "ERROR: You must enter a value before continuing",
+
+  //submit
+  SUBMIT_ERROR = "ERROR: There was an error submitting this response",
 
 }

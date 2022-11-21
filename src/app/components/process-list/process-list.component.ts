@@ -18,6 +18,8 @@ export class ProcessListComponent implements OnInit {
       processList => {this.processList = processList
       }
     )
+
+    this.processService.$errorMessage.pipe(takeUntil(this.onDestroy)).subscribe(message => this.errorMessage = message)
   }
 
   ngOnInit(): void {

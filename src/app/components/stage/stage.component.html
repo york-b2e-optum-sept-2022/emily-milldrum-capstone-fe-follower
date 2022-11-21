@@ -108,7 +108,7 @@
 <!--        </div>-->
 
       </ng-container>
-      <div class="container">{{errorMessage}}</div>
+      <div class="error-message">{{errorMessage}}</div>
       <div class="centering" *ngIf="!responseComplete">
         <button class="btn btn-light" *ngIf="notLast" (click)=next()>Next</button>
         <button class="btn btn-light" *ngIf="!notLast" (click)=submit()>Submit</button>

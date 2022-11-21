@@ -45,7 +45,7 @@ body {
 }
 
 
-#error-message{
+#error-message, .error-message{
   color: chocolate;
 }
 

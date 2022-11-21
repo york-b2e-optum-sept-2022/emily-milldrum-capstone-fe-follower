@@ -41,7 +41,7 @@ export class StageListComponent implements OnInit {
     this.processService.$stageList.pipe(takeUntil(this.onDestroy)).subscribe(
       stageList => this.stageList = stageList
     );
-    this.processService.getStageById(this.process.id)
+    //this.processService.getStageById(this.process.id)
   }
 
   ngOnDestroy(): void {

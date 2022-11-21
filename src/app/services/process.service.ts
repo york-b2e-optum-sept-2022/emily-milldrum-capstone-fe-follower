@@ -5,6 +5,7 @@ import {IProcess} from "../_interfaces/IProcess";
 import {ERRORS} from "../_enums/ERRORS";
 import {IStage} from "../_interfaces/IStage";
 import {IResponse} from "../_interfaces/IResponse";
+import {IAnswer} from "../_interfaces/IAnswer";
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,21 @@ export class ProcessService {
   processList: IProcess[] = [];
   $selectedProcess = new BehaviorSubject<IProcess | null>(null)
   $processList = new BehaviorSubject<IProcess[]>([])
-  $processError = new BehaviorSubject<string | null>(null)
+  $errorMessage = new BehaviorSubject<string | null>(null)
 
   $stageList = new BehaviorSubject<IStage[]>([])
+
+
+  response: IResponse = {
+    processes: {
+      id: 0,
+      title: "",
+      discontinued: false,
+      stage: []
+    },
+    answer: []
+  }
+
 
   constructor( private httpService: HttpService) {
     this.getAllProcess();
@@ -31,7 +44,7 @@ export class ProcessService {
       },
       error: (err) => {
         console.error(err);
-        this.$processError.next(ERRORS.PROCESSES_HTTP_ERROR);
+        this.$errorMessage.next(ERRORS.PROCESSES_HTTP_ERROR);
       }
     });
   }
@@ -44,14 +57,35 @@ export class ProcessService {
     console.log('ps submit to http')
     console.log(response.processes)
     console.log(response)
-    this.httpService.createResponse(response).pipe(first()).subscribe({
+    this.httpService.createResponse(this.response).pipe(first()).subscribe({
       next: (response) =>{
-        console.log('success')
-        console.log(response)
+        //this.$selectedProcess.next(null);
       },
       error: (err) => {
         console.log(err)
+        this.$errorMessage.next(ERRORS.SUBMIT_ERROR)
       }
     })
+
+    //reset response for next survey
+    this.response = {
+      processes: {
+        id: 0,
+        title: "",
+        discontinued: false,
+        stage: []
+      },
+      answer: []
+    }
+  }
+
+  addAnswer(process: IProcess, answer: IAnswer) {
+
+    this.response.processes = process;
+
+    let answerCopy = JSON.parse(JSON.stringify(answer));
+    this.response.answer.push(answerCopy)
+    console.log(this.response)
+
   }
 }

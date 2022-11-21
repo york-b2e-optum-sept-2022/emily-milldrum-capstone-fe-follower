@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {IProcess} from "../../_interfaces/IProcess";
 import {ProcessService} from "../../services/process.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-process',
@@ -16,13 +17,17 @@ export class ProcessComponent implements OnInit {
     discontinued: false,
     stage: [],
   };
-  deleteAlert: string | null = null;
+
+  errorMessage: string | null = null;
+  onDestroy = new Subject();
   constructor(private processService: ProcessService, private modalService: NgbModal) {
+
+    this.processService.$errorMessage.pipe(takeUntil(this.onDestroy)).subscribe(message => this.errorMessage = message)
 
   }
 
   ngOnInit(): void {
-    this.numStages = this.process.stage.length
+    this.numStages = this.process.stage.length + 1;
   }
 
 
@@ -38,8 +43,6 @@ export class ProcessComponent implements OnInit {
   }
 
   onRespond() {
-    console.log('click')
-    console.log(this.process)
     this.processService.$selectedProcess.next(this.process)
   }
 }

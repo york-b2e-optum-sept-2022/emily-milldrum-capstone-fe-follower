@@ -5,6 +5,7 @@ import {IProcess} from "../../_interfaces/IProcess";
 import {IStage, IStageOptions} from "../../_interfaces/IStage";
 import {IResponse} from "../../_interfaces/IResponse";
 import {IAnswer} from "../../_interfaces/IAnswer";
+import {ERRORS} from "../../_enums/ERRORS";
 
 @Component({
   selector: 'app-stage',
@@ -23,6 +24,7 @@ export class StageComponent implements OnInit {
 
 
   cur: number = -1;
+  stageCur: number = 0;
   response: IResponse | null = null;
   answer: IAnswer = {
     stage:
@@ -53,39 +55,28 @@ export class StageComponent implements OnInit {
   constructor(private processService: ProcessService) {
     this.processService = processService
 
+    this.processService.$errorMessage.pipe(takeUntil(this.onDestroy)).subscribe(message => this.errorMessage = message)
+
     this.processService.$selectedProcess.pipe(takeUntil(this.onDestroy)).subscribe(
       selectedProcess => {
         this.selectedProcess = selectedProcess;
       }
     )
-
-    console.log('stage const')
-    console.log(this.selectedProcess?.stage)
-    console.log(this.stageOptions)
-    // if (this.selectedProcess !== null){
-    //   this.stage = this.selectedProcess.stage)
-    // }
-
+    //set first values
     this.next()
-    // if(this.selectedProcess !== null){
-    //   this.curType = this.selectedProcess.stage[this.cur].type;
-    //   this.curQuestion = this.selectedProcess.stage[this.cur].question;
-    //   this.curStageOption = this.selectedProcess.stage[this.cur].stageOptions;
-    //   this.curStageOrder = this.selectedProcess.stage[this.cur].stageOrder;
-    // }
-
   }
 
   ngOnInit(): void {
     //if there is a process selected set total stage num, create response
     if (this.selectedProcess) {
-      this.totalStageNum = this.selectedProcess.stage.length;
+      this.totalStageNum = this.selectedProcess.stage.length + 1;
 
       this.response = {
         processes: this.selectedProcess,
         answer: []
       };
     }
+    this.processService.$errorMessage.next(null)
     console.log(this.curStageOptions)
   }
 
@@ -93,13 +84,9 @@ export class StageComponent implements OnInit {
   next() {
     //validation
     if (this.selectedProcess == null) {
-      console.log('process test is null')
-
-      //TODO MORE ERROR HANDLING
-
-      // } else if (this.response == null || this.answer == null) {
-      //     //throw error
-      //     console.log('response/answer is null')
+      this.processService.$errorMessage.next(ERRORS.PROCESS_NULL)
+    } else if (this.option == "" || this.option == null){
+      this.processService.$errorMessage.next(ERRORS.ANSWER_BLANK)
     } else {
       //if this is the last prompt change button
       if (this.cur == (this.selectedProcess.stage.length - 2)) {
@@ -123,39 +110,17 @@ export class StageComponent implements OnInit {
   setAnswer() {
     //validation
     if (this.selectedProcess == null) {
-      console.log('process test is null')
-
-      //TODO MORE ERROR HANDLING
-
-      // } else if (this.response == null || this.answer == null) {
-      //     //throw error
-      //     console.log('response/answer is null')
+      this.processService.$errorMessage.next(ERRORS.PROCESS_NULL)
     } else {
       if (this.response) {
         if (this.answer) {
-          this.answer.stage = this.selectedProcess.stage[this.cur];
-
-          //TODO NEED way to pull answer from each type
-          switch (this.selectedProcess.stage[this.cur].type) {
-            case 'Boolean':
-              console.log('stage is  boolean do this')
-              break;
-            case 'Multiple Choice: Single':
-              console.log('stage is multi single do this')
-              break;
-            case 'Multiple Choice: Multiple':
-              console.log('stage is multi multiple do this')
-              break;
-            default:
-              console.log('stage is textbox do this')
-              break;
-          }
-
+          console.log('set answer')
+          console.log(this.selectedProcess.stage)
+          console.log(this.stageCur)
+          this.answer.stage = this.selectedProcess.stage[this.stageCur];
           this.answer.answer = this.option
-          //deep copy to not have same answer for all
-          let answerCopy = JSON.parse(JSON.stringify(this.answer));
-          this.response.answer.push(answerCopy)
-          console.log(this.response)
+          this.processService.addAnswer(this.selectedProcess,this.answer)
+          this.processService.$errorMessage.next(null)
         }
       }
     }
@@ -164,14 +129,13 @@ export class StageComponent implements OnInit {
   submit() {
     this.setAnswer()
     if(this.selectedProcess && this.response){
-    this.response.processes =this.selectedProcess;
-
     }
     if (this.response){
       this.processService.submitResponse(this.response)
+      this.processService.$errorMessage.next(null)
       this.responseComplete = true;
     } else {
-      //TODO ERROR MESSAGE
+      this.processService.$errorMessage.next(ERRORS.SUBMIT_ERROR)
     }
   }
 
