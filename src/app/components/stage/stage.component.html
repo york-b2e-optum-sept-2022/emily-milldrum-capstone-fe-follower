@@ -93,13 +93,19 @@
           <!--          if selected multi multiple show this-->
           <ng-container *ngIf="curType == 'Multiple Choice: Multiple'">
             <div class="form-group row">
-              <div *ngFor="let options of curStageOptions" class="col-8">
-                <div class="custom-control custom-checkbox custom-control-inline">
-                  <!--                checked="checked" for pre-checked-->
-                  <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="{{options.option}}" [(ngModel)]="options.option === option">
-                  <label for="checkbox_0" class="custom-control-label">&nbsp; {{options.option}}</label>
-                </div>
-              </div>
+
+              <app-stage-options *ngFor="let option of curStageOptions"
+                         [option]="option">
+              </app-stage-options>
+
+<!--              <div *ngFor="let options of curStageOptions" class="col-8">-->
+
+<!--                <div class="custom-control custom-checkbox custom-control-inline">-->
+<!--                  &lt;!&ndash;                checked="checked" for pre-checked&ndash;&gt;-->
+<!--                  <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" (click)="multiClick()" value="{{options.option}}" [(ngModel)]="options.option.valueOf() === option">-->
+<!--                  <label for="checkbox_0" class="custom-control-label">&nbsp; {{options.option}}</label>-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
           </ng-container>
         </div>

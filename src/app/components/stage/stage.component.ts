@@ -18,13 +18,10 @@ export class StageComponent implements OnInit {
   selectedProcess: IProcess | null = null;
   onDestroy = new Subject();
 
-  type: string = "";
-  stageOptions: string[] = [];
+
   errorMessage: string | null = null;
 
-
   cur: number = 0;
-  stageCur: number = 0;
   response: IResponse | null = null;
   answer: IAnswer = {
     stage:
@@ -40,7 +37,6 @@ export class StageComponent implements OnInit {
 
   option: string = "";
 
-
   //html fields
   notLast: boolean = true;
   curType: string = "Textbox";
@@ -51,8 +47,6 @@ export class StageComponent implements OnInit {
   curStageNum: number = 0;
   totalStageNum: number = 0;
   responseComplete: boolean = false;
-
-  stageLength: number =0;
 
   constructor(private processService: ProcessService) {
     this.processService = processService
@@ -72,13 +66,11 @@ export class StageComponent implements OnInit {
     //if there is a process selected set total stage num, create response
     if (this.selectedProcess) {
       this.totalStageNum = this.selectedProcess.stage.length;
-      console.log(this.totalStageNum)
-      console.log(this.cur)
-      console.log(this.selectedProcess.stage.length)
       if (this.cur == (this.selectedProcess.stage.length - 1)) {
-        console.log('changeButton')
         this.notLast = false;
       }
+
+      this.setNext();
 
       this.response = {
         processes: this.selectedProcess,
@@ -86,7 +78,8 @@ export class StageComponent implements OnInit {
       };
     }
     this.processService.$errorMessage.next(null)
-    console.log(this.curStageOptions)
+
+
   }
 
 
@@ -99,18 +92,13 @@ export class StageComponent implements OnInit {
     } else {
       //if this is the last prompt change button
       if (this.cur == (this.selectedProcess.stage.length - 2)) {
-        console.log('changeButton')
         this.notLast = false;
       }
-      console.log(this.option);
       this.setAnswer()
       //set next prompt
       this.curStageNum += 1;
       this.cur = this.cur + 1;
-      this.curType = this.selectedProcess.stage[this.cur].type;
-      this.curQuestion = this.selectedProcess.stage[this.cur].question;
-      this.curStageOptions = this.selectedProcess.stage[this.cur].stageOptions;
-      this.curStageOrder = this.selectedProcess.stage[this.cur].stageOrder;
+      this.setNext();
       this.percentDone = (this.cur / this.selectedProcess.stage.length) * 100;
       this.option = "";
     }
@@ -123,10 +111,7 @@ export class StageComponent implements OnInit {
     } else {
       if (this.response) {
         if (this.answer) {
-          console.log('set answer')
-          console.log(this.selectedProcess.stage)
-          console.log(this.stageCur)
-          this.answer.stage = this.selectedProcess.stage[this.stageCur];
+          this.answer.stage = {...this.selectedProcess.stage[this.cur]};
           this.answer.answer = this.option
           this.processService.addAnswer(this.selectedProcess,this.answer)
           this.processService.$errorMessage.next(null)
@@ -150,5 +135,19 @@ export class StageComponent implements OnInit {
 
   closeThis() {
     this.processService.$selectedProcess.next(null);
+  }
+
+  multiClick() {
+    console.log('multi clicked')
+    console.log(this.option)
+  }
+
+  private setNext() {
+    if(this.selectedProcess) {
+      this.curType = this.selectedProcess.stage[this.cur].type;
+      this.curQuestion = this.selectedProcess.stage[this.cur].question;
+      this.curStageOptions = this.selectedProcess.stage[this.cur].stageOptions;
+      this.curStageOrder = this.selectedProcess.stage[this.cur].stageOrder;
+    }
   }
 }

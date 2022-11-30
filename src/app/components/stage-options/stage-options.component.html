@@ -1,5 +1,17 @@
-<ng-container *ngFor="let option of choice">
+<div class="custom-control custom-checkbox custom-control-inline">
 
-  <ng-container (click)="onClick()">{{option}}</ng-container>
 
-</ng-container>
+  <div *ngIf="checked === true">
+    <input class="form-check-input" type="checkbox" (click)="multiClickRemove()" id="isChecked" checked>
+    <label class="form-check-label" for="isChecked">
+      {{option.option}}
+    </label>
+  </div>
+
+  <div *ngIf="checked === false">
+    <input class="form-check-input" type="checkbox" (click)="multiClickAdd()" id="notChecked">
+    <label class="form-check-label" for="notChecked">
+      {{option.option}}
+    </label>
+  </div>
+</div>

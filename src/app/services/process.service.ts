@@ -16,7 +16,7 @@ export class ProcessService {
   $selectedProcess = new BehaviorSubject<IProcess | null>(null)
   $processList = new BehaviorSubject<IProcess[]>([])
   $errorMessage = new BehaviorSubject<string | null>(null)
-
+  $selectedOptions = new BehaviorSubject<string>('')
   $stageList = new BehaviorSubject<IStage[]>([])
 
 
@@ -81,10 +81,12 @@ export class ProcessService {
   }
 
   addAnswer(process: IProcess, answer: IAnswer) {
-
+    console.log('ps answer')
+    console.log(answer)
     this.response.processes = process;
 
     let answerCopy = JSON.parse(JSON.stringify(answer));
+    console.log(answerCopy)
     this.response.answer.push(answerCopy)
     console.log(this.response)
 
