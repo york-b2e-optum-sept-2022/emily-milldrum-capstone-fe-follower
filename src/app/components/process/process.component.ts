@@ -27,7 +27,7 @@ export class ProcessComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.numStages = this.process.stage.length + 1;
+    this.numStages = this.process.stage.length;
   }
 
 

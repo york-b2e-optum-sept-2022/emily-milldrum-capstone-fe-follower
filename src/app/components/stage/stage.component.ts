@@ -23,7 +23,7 @@ export class StageComponent implements OnInit {
   errorMessage: string | null = null;
 
 
-  cur: number = -1;
+  cur: number = 0;
   stageCur: number = 0;
   response: IResponse | null = null;
   answer: IAnswer = {
@@ -52,6 +52,8 @@ export class StageComponent implements OnInit {
   totalStageNum: number = 0;
   responseComplete: boolean = false;
 
+  stageLength: number =0;
+
   constructor(private processService: ProcessService) {
     this.processService = processService
 
@@ -63,13 +65,20 @@ export class StageComponent implements OnInit {
       }
     )
     //set first values
-    this.next()
+
   }
 
   ngOnInit(): void {
     //if there is a process selected set total stage num, create response
     if (this.selectedProcess) {
-      this.totalStageNum = this.selectedProcess.stage.length + 1;
+      this.totalStageNum = this.selectedProcess.stage.length;
+      console.log(this.totalStageNum)
+      console.log(this.cur)
+      console.log(this.selectedProcess.stage.length)
+      if (this.cur == (this.selectedProcess.stage.length - 1)) {
+        console.log('changeButton')
+        this.notLast = false;
+      }
 
       this.response = {
         processes: this.selectedProcess,

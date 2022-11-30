@@ -11,7 +11,6 @@ import {HttpClientModule} from "@angular/common/http";
 import { StageListComponent } from './components/stage-list/stage-list.component';
 import {FormsModule} from "@angular/forms";
 import { StageOptionsComponent } from './components/stage-options/stage-options.component';
-import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { TestComponent } from './components/test/test.component';
     NavbarComponent,
     StageComponent,
     StageListComponent,
-    StageOptionsComponent,
-    TestComponent
+    StageOptionsComponent
   ],
     imports: [
         BrowserModule,

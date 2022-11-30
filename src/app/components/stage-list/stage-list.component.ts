@@ -32,16 +32,24 @@ export class StageListComponent implements OnInit {
   curStageOption: any;
   curQuestion: any;
   curStageOrder: any;
+  stageLength: number =0;
 
 
 
-  constructor(private processService: ProcessService) { }
+  constructor(private processService: ProcessService) {
+
+    this.stageLength = this.stageList.length - 1
+    console.log(this.stageLength)
+  }
 
   ngOnInit(): void {
     this.processService.$stageList.pipe(takeUntil(this.onDestroy)).subscribe(
       stageList => this.stageList = stageList
     );
+    this.stageLength = this.stageList.length - 1
+    console.log(this.stageLength)
     //this.processService.getStageById(this.process.id)
+
   }
 
   ngOnDestroy(): void {

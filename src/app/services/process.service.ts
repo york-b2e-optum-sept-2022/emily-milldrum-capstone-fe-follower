@@ -57,6 +57,7 @@ export class ProcessService {
     console.log('ps submit to http')
     console.log(response.processes)
     console.log(response)
+    console.log(this.response)
     this.httpService.createResponse(this.response).pipe(first()).subscribe({
       next: (response) =>{
         //this.$selectedProcess.next(null);

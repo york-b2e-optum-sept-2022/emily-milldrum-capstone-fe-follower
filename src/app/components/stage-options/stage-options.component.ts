@@ -12,8 +12,9 @@ export class StageOptionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.choice)
-
     }
 
+    onClick(){
+    console.log(this.choice)
+    }
 }
