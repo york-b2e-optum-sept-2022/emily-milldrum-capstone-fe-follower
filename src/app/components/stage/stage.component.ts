@@ -112,7 +112,13 @@ export class StageComponent implements OnInit {
       if (this.response) {
         if (this.answer) {
           this.answer.stage = {...this.selectedProcess.stage[this.cur]};
-          this.answer.answer = this.option
+          //if not multi:m
+          if(this.curType !=='Multiple Choice: Multiple') {
+            this.answer.answer = this.option
+          } else { //if multi:m
+            this.answer.answer = this.processService.$selectedOptions.getValue()
+            console.log(this.answer.answer);
+          }
           this.processService.addAnswer(this.selectedProcess,this.answer)
           this.processService.$errorMessage.next(null)
         }
@@ -126,20 +132,20 @@ export class StageComponent implements OnInit {
     }
     if (this.response){
       this.processService.submitResponse(this.response)
-      this.processService.$errorMessage.next(null)
       this.responseComplete = true;
-    } else {
+    }
+    // else if (this.curType == 'Multiple Choice: Multiple')
+    // {
+    //
+    // }
+    else{
       this.processService.$errorMessage.next(ERRORS.SUBMIT_ERROR)
     }
   }
 
   closeThis() {
     this.processService.$selectedProcess.next(null);
-  }
-
-  multiClick() {
-    console.log('multi clicked')
-    console.log(this.option)
+    this.processService.resetErrors();
   }
 
   private setNext() {

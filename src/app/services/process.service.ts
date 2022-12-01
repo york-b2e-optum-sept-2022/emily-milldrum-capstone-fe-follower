@@ -60,7 +60,8 @@ export class ProcessService {
     console.log(this.response)
     this.httpService.createResponse(this.response).pipe(first()).subscribe({
       next: (response) =>{
-        //this.$selectedProcess.next(null);
+        this.$errorMessage.next(null)
+        this.$selectedOptions.next('')
       },
       error: (err) => {
         console.log(err)
@@ -90,5 +91,9 @@ export class ProcessService {
     this.response.answer.push(answerCopy)
     console.log(this.response)
 
+  }
+
+  resetErrors(){
+    this.$errorMessage.next(null)
   }
 }

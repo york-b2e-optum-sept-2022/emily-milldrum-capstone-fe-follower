@@ -39,7 +39,9 @@ export class StageOptionsComponent implements OnInit {
 
   multiClickRemove() {
     console.log('remove')
-    this.selectedOptions.replace(this.option.option, '')
+    console.log(this.option.option)
+    this.selectedOptions = this.selectedOptions.replace(`${this.option.option},`, '')
+    this.processService.$selectedOptions.next(this.selectedOptions)
     console.log(this.selectedOptions)
     this.checked = false;
   }

@@ -15,5 +15,6 @@ export class NavbarComponent implements OnInit {
 
   home() {
     this.processService.$selectedProcess.next(null);
+    this.processService.resetErrors();
   }
 }
